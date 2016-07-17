@@ -1,0 +1,25 @@
+---
+- name: Ensure specified timezone is available | 1
+  stat:
+    path: '/usr/share/zoneinfo/{{ timezone }}'
+  register: register_timezone_specified
+
+- name: Ensure specified timezone is available | 2
+  fail:
+  when: not register_timezone_specified.stat.exists
+
+- name: Set /etc/localtime
+  file:
+    src: '/usr/share/zoneinfo/{{ timezone }}'
+    dest: '/etc/localtime'
+    state: link
+    force: True
+
+- name: Set /etc/timezone
+  copy:
+    dest: /etc/timezone
+    content: "{{ timezone }}"
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == "Debian"
