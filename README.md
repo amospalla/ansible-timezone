@@ -5,7 +5,7 @@
 
 Sets a host timezone.
 
-Set the contents of /etc/timezone to the variable _timezone_.
+Set the contents of /etc/timezone to the variable _timezone_ (only Debian/Ubuntu).
 
 Makes a symbolic link of file /usr/share/zoneinfo/{{ timezone }} to /etc/localtime.
 
