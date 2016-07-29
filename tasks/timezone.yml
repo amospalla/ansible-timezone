@@ -9,11 +9,10 @@
   when: not register_timezone_specified.stat.exists
 
 - name: Set /etc/localtime
-  file:
+  copy:
     src: '/usr/share/zoneinfo/{{ timezone }}'
     dest: '/etc/localtime'
-    state: link
-    force: True
+    remote_src: True
 
 - name: Set /etc/timezone
   copy:
